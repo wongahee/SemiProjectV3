@@ -6,22 +6,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class JoinController {
 
-    @GetMapping("join/agree")
+    @GetMapping("/join/agree")
     public String agree(){
         return "join/agree.tiles";
     }
 
-    @GetMapping("join/ckeckme")
+    @GetMapping("/join/ckeckme")
     public String ckeckme(){
         return "join/ckeckme.tiles";
     }
 
-    @GetMapping("join/joinme")
+    @GetMapping("/join/joinme")
     public String joinme(){
         return "join/joinme.tiles";
     }
 
-    @GetMapping("join/joinok")
+    @GetMapping("/join/joinok")
     public String joinok(){
         return "join/joinok.tiles";
     }
