@@ -389,8 +389,7 @@ Copyright © Kakao Corp. All rights reserved.
 
           <div class="bg-light text-center">
               <button type="button" id="okagree" class="btn btn-success">모두 동의합니다.</button>
-              <button type="button" id="notagree" class="btn btn-danger">동의하지 않습니다.</button>
+              <button type="button" id="noagree" class="btn btn-danger">동의하지 않습니다.</button>
           </div><!-- 버튼들 -->
 
       </div>
-   
