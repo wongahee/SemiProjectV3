@@ -161,7 +161,7 @@
     <form name="zipfrm" id="zipfrm">
         <div class="form-inline row justify-content-center">
             <label class="col-form-label text-primary text-right" for="dong">검색하실 주소의<br> 동 이름을 입력하세요</label>&nbsp;&nbsp;
-            <input type="dong" name="dong" id="dong" class="form-control border-primary col-4">&nbsp;
+            <input type="text" name="dong" id="dong" class="form-control border-primary col-4">&nbsp;
             <button type="button" id="findzipbtn" class="btn btn-primary"><i class="fas fa-search"></i> 검색하기</button>
         </div>
         <div class="form-group row">

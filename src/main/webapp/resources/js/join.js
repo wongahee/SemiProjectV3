@@ -140,7 +140,7 @@ $('#findzipbtn').on('click', function () {
 
 // zipcode dong prevent enter key
 $('input[type="text"]').keydown(function () {
-   if(event.keyCode === 13) {
+   if (event.keyCode === 13) {
        event.preventDefault();
    }
 });
