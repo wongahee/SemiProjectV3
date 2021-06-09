@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+@Repository("mdao")
 public class MemberDAOImpl implements MemberDAO {
 
     @Autowired private SqlSession sqlSession;
@@ -25,7 +25,7 @@ public class MemberDAOImpl implements MemberDAO {
 
     @Override
     public int selectOneUserid(String uid) {
-        return 0;
+        return sqlSession.selectOne("member.checkUserid", uid);
     }
 
     @Override

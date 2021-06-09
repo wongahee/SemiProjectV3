@@ -18,7 +18,7 @@
     <select id="selectZipcode" statementType="PREPARED"
             parameterType="String"
             resultType="gahee.spring.mvc.vo.Zipcode">
-        select * from zipcode where dong = #{dong}
+        select * from zipcode where dong like #{dong}
     </select>
 
     <select id="checkUserid" statementType="PREPARED"
