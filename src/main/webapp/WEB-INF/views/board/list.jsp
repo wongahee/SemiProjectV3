@@ -2,6 +2,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%--
     데이터가 너무 많아서 한 페이지에 모든 것을 출력하기 어려운 경우
@@ -12,13 +13,45 @@
      총 페이지수 : 4page
     -총 데이터수 : 105, 한 페이지당 출력할 게시글수 = 25
      총 페이지수 : 5page
-
 --%>
+<%--
+    게시판 네비게이션
+    : 현재 페이지에 따라 보여줄 페이지 블럭을 결정
+    ex) 총 페이지수가 27일때
+    cp = 1; 1 2 3 4 5 6 7 8 9 10
+    cp = 3; 1 2 3 4 5 6 7 8 9 10
+    cp = 9; 1 2 3 4 5 6 7 8 9 10
+    cp = 11; 11 12 13 14 15 16 17 18 19 20
+    cp = 23; 21 22 23 24 25 26 27
+    1~10 11~20 21~30 ...
+    따라서, cp값에 따라 페이지 블럭의 시작값을 계산
+    startpage = ((cp - 1) / 10) * 10 + 1
+    endpage = startpage + 9
+--%>
+
+<fmt:parseNumber var="cp" value="${param.cp}" />
+
+<fmt:parseNumber var="sp" value="${(cp - 1) / 10}" integerOnly="true" />
+<fmt:parseNumber var="sp" value="${sp * 10 + 1}" />     <%-- 한번에 계산안됨. 원래식: ((cp - 1) / 10) * 10 + 1 --%>
+
+<fmt:parseNumber var="ep" value="${sp + 9}" />
+
+<%-- 총 게시물수를 페이지당 게시물 수로 나눔 : 총페이지수 --%>
+<fmt:parseNumber var="tp" value="${bdcnt / 30}" integerOnly="true" />
+<c:if test="${(bdcnt % 30) > 0}">
+    <fmt:parseNumber var="tp" value="${tp + 1}" />
+</c:if>
+
+<%-- 글번호 --%>
+<fmt:parseNumber var="snum" value="${bdcnt - (cp - 1) * 30}" />
+
+<%-- 페이지 링크--%>
+<c:set var="pglink" value="/board/list?cp=" />
 
 <div id="main">
   <div>
      <br>
-      <i class="fas fa-comments fa-2x"> 자유 게시판</i>
+      <i class="fas fa-comments fa-2x"> 자유 게시판 ${tp} / ${bdcnt}</i>
      <hr>
   </div><!--페이지 타이틀-->
 
@@ -66,12 +99,13 @@
 
               <c:forEach var="bd" items="${bds}">
               <tr>
-                  <td>${bd.bdno}</td>
-                  <td><a href="view.html">${bd.title}</a></td>
+                  <td>${snum}</td>
+                  <td><a href="/board/view?bdno=${bd.bdno}">${bd.title}</a></td>
                   <td>${bd.userid}</td>
-                  <td>${bd.regdate}</td>
+                  <td>${fn:substring(bd.regdate,0,10)}</td>
                   <td>${bd.thumbup}</td>
                   <td>${bd.views}</td>
+                  <c:set var="snum" value="${snum - 1}" />
               </tr>
               </c:forEach>
 
@@ -83,18 +117,29 @@
   <div class="row">
       <div class="col-12">
           <ul class="pagination justify-content-center">
-              <li class="page-item"><a href="#" class="page-link">이전</a></li>
-              <li class="page-item active"><a href="#" class="page-link">1</a></li>
-              <li class="page-item"><a href="#" class="page-link">2</a></li>
-              <li class="page-item"><a href="#" class="page-link">3</a></li>
-              <li class="page-item"><a href="#" class="page-link">4</a></li>
-              <li class="page-item"><a href="#" class="page-link">5</a></li>
-              <li class="page-item"><a href="#" class="page-link">6</a></li>
-              <li class="page-item"><a href="#" class="page-link">7</a></li>
-              <li class="page-item"><a href="#" class="page-link">8</a></li>
-              <li class="page-item"><a href="#" class="page-link">9</a></li>
-              <li class="page-item"><a href="#" class="page-link">10</a></li>
-              <li class="page-item"><a href="#" class="page-link">다음</a></li>
+
+            <%-- '이전'버튼이 작동되어야 할때는 sp가 11보다 작을때 --%>
+            <li class="page-item <c:if test="${sp lt 11}">disabled</c:if>">
+                <a href="${pglink}${sp-10}" class="page-link">이전</a></li>
+
+              <%-- 반복문을 이용해서 페이지 링크 생성 --%>
+              <c:forEach var="i" begin="${sp}" end="${ep}" step="1">
+                  <%-- 출력 페이지 i가 총페이지수보다 작거나 같을때까지만 출력 (마지막page:35이면 36부터 출력x)--%>
+                  <c:if test="${i le tp}">
+                    <c:if test="${i eq cp}">
+                    <li class="page-item active"><a href="${pglink}${i}" class="page-link">${i}</a></li>
+                  </c:if>
+
+                    <c:if test="${i ne cp}">
+                    <li class="page-item"><a href="${pglink}${i}" class="page-link">${i}</a></li>
+                  </c:if>
+                </c:if>
+              </c:forEach>
+
+            <%-- '다음'버튼이 작동되어야 할때는 ep가 tp보다 클때 --%>
+            <li class="page-item <c:if test="${ep gt tp}">disabled</c:if>">
+                <a href="${pglink}${sp+10}" class="page-link">다음</a></li>
+
           </ul>
       </div>
   </div><!--페이지네이션-->

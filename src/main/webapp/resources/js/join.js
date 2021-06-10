@@ -202,12 +202,3 @@ $('#lgmbtn').on('click', function (){
 $('#logoutbtn').on('click', function (){
     location.href = '/join/logout';
 });
-
-
-
-
-
-
-
-
-
