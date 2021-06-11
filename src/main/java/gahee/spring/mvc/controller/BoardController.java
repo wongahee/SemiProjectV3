@@ -1,8 +1,10 @@
 package gahee.spring.mvc.controller;
 
 import gahee.spring.mvc.dao.BoardDAO;
+import gahee.spring.mvc.service.BoardReplyService;
 import gahee.spring.mvc.service.BoardService;
 import gahee.spring.mvc.vo.Board;
+import gahee.spring.mvc.vo.Reply;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +14,16 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class BoardController {
 
-    @Autowired private BoardService bsrv;
+    // AutoWired 제거
+    private BoardService bsrv;
+    private BoardReplyService brsrv;
+
+    // 생성자 + Autowired
+    @Autowired
+    public BoardController(BoardService bsrv, BoardReplyService brsrv) {
+        this.bsrv = bsrv;
+        this.brsrv = brsrv;
+    }
 
     @GetMapping("/board/list")
     public ModelAndView list(ModelAndView mv, String cp){
@@ -31,6 +42,7 @@ public class BoardController {
 
         mv.setViewName("board/view.tiles");
         mv.addObject("bd", bsrv.readOneBoard(bdno));
+        mv.addObject("rps", brsrv.readReply(bdno)); // 댓글가져오기
 
         return mv;
     }
@@ -63,5 +75,24 @@ public class BoardController {
         return mv;
     }
 
+    // 댓글쓰기 - 쓰고 다시 댓글쓴 페이지로 이동
+    @PostMapping("/reply/write")
+    public String replyok(Reply r){
+        String returnPage = "redirect:/board/view?bdno="+r.getBdno();
+
+        brsrv.newComment(r);
+
+        return returnPage;
+    }
+
+    // 대댓글쓰기
+    @PostMapping("/rreply/write")
+    public String rreplyok(Reply r){
+        String returnPage = "redirect:/board/view?bdno="+r.getBdno();
+
+        brsrv.newReply(r);
+
+        return returnPage;
+    }
 
 }
