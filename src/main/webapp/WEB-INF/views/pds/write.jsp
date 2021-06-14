@@ -15,19 +15,20 @@
            <h3><i class="fas fa-plus-circle"> 새글 쓰기</i></h3>
        </div>
        <div class="col-5 text-right">
-           <button type="button" class="btn btn-light"><i class="fas fa-list"></i> 목록으로</button>
+           <button type="button" id="listpbtn" class="btn btn-light"><i class="fas fa-list"></i> 목록으로</button>
        </div>
      </div>
 
      <div class="card card-body bg-light col-10 offset-1">
-         <form name="boardfrm" id="boardfrm">
+         <form name="pdsfrm" id="pdsfrm" enctype="multipart/form-data">
              <div class="form-group row">
                <label class="col-form-label col-2 text-right text-danger" for="title">제목</label>
                <input type="text" id="title" name="title" class="form-control col-9 border-danger">
              </div>
              <div class="form-group row">
                <label class="col-form-label col-2 text-right text-danger" for="userid">작성자</label>
-               <input type="text" id="userid" name="userid" class="form-control col-9 border-danger" readonly>
+               <input type="text" id="userid" name="userid" class="form-control col-9 border-danger"
+                      readonly value="${UID}">
              </div>
              <div class="form-group row">
                <label class="col-form-label col-2 text-right text-danger" for="contents">본문내용</label>
@@ -63,8 +64,10 @@
              <div class="form-group row">
                  <hr class="col-10">
                  <div class="col-12 text-center">
-                   <button type="button" class="btn btn-primary"><i class="fas fa-check-circle"></i> 입력완료</button>
-                   <button type="button" class="btn btn-danger"><i class="fas fa-times-circle"></i>취소하기</button>
+                   <button type="button" class="btn btn-primary" id="newpds">
+                       <i class="fas fa-check-circle"></i> 입력완료</button>
+                   <button type="reset" class="btn btn-danger">
+                       <i class="fas fa-times-circle"></i>취소하기</button>
                  </div>
              </div>
          </form>
