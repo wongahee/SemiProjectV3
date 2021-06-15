@@ -26,4 +26,50 @@
             parameterType="String" resultType="gahee.spring.mvc.vo.Pds">
         select * from pds where pno = #{pno}
     </select>
+
+    <!-- 다운로드 -->
+    <select id="selectFname" statementType="PREPARED"
+            parameterType="Map" resultType="gahee.spring.mvc.vo.Pds">
+        select ${order} fname1, uuid from pds
+        where pno = #{pno}
+    </select>
+
+    <!-- 다운로드수 증가 -->
+    <update id="updateDown" statementType="PREPARED"
+            parameterType="Map">
+        update pds set ${order} = ${order} + 1
+        where pno = #{pno}
+    </update>
+
+    <!-- 추천수 증가 -->
+    <update id="updateThumbs" statementType="PREPARED"
+            parameterType="String">
+        update pds set thumbup = thumbup + 1
+        where pno = #{pno}
+    </update>
+
+    <!-- 이전/다음글 -->
+    <select id="selectPrev" statementType="PREPARED"
+            parameterType="String" resultType="String">
+        select prev from (
+                          select pno, lead(pno) over(order by pno desc) prev
+                          from pds) newone
+        where pno = #{pno}
+    </select>
+
+    <select id="selectNext" statementType="PREPARED"
+            parameterType="String" resultType="String">
+        select next from (
+                      select pno, lag(pno) over(order by pno desc) next
+                      from pds
+                      ) newone
+        where pno = #{pno}
+    </select>
+
+    <!-- 게시글 삭제 -->
+    <delete id="deletePds" statementType="PREPARED"
+            parameterType="String">
+            delete from pds where pno = #{pno}
+    </delete>
+
 </mapper>

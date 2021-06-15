@@ -16,3 +16,24 @@ $('#newpds').on('click', function () {
         frm.submit();
     }
 });
+
+// recomand - thumbup 추천수 증가
+$('#pdthumbtn').on('click', function (){
+   location.href = '/pds/recommd?pno=' + $('#pno').val();
+});
+
+// prebtn - 이전게시물
+$('#pdprvbtn').on('click', function (){
+    location.href = '/pds/prev?pno=' + $('#pno').val();
+});
+
+// nextbtn - 다음게시물
+$('#pdnxtbtn').on('click', function (){
+    location.href = '/pds/next?pno=' + $('#pno').val();
+});
+
+// removebtn
+$('#pdrmvbtn').on('click', function (){
+    location.href = '/pds/pdrmv?pno=' + $('#pno').val();
+});
+

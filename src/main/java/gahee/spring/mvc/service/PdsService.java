@@ -17,5 +17,10 @@ public interface PdsService {
 
     boolean downCountPds(String pno, String order);
 
+    void modifyRecmd(String pno);   // 추천하기
 
+    String readPrvpno(String pno);  // 이전게시글
+    String readNxtpno(String pno);  // 다음게시글
+
+    Pds removePds(String pno);      // 삭제하기
 }

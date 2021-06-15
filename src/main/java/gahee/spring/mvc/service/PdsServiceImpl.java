@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service("psrv")
 public class PdsServiceImpl implements PdsService {
@@ -40,6 +42,7 @@ public class PdsServiceImpl implements PdsService {
             else
                 files.add("-/-/-");     // 업로드한 파일이 없는 경우 '-/-/-'를 배열에 저장
         }
+
         // 배열에 저장한 정보들을 하나씩 추출해서 Pds에 각각 저장
         // ('0/0/0') 중 첫번째
         p.setFname1(files.get(0).split("[/]")[0]); // 파일명
@@ -84,12 +87,47 @@ public class PdsServiceImpl implements PdsService {
 
     @Override
     public Pds readOneFname(String pno, String order) {
-        return null;
+        Map<String, String> param = new HashMap<>();
+        param.put("order", "fname"+order);
+        param.put("pno", pno);
+
+        return pdao.selectOneFname(param);
     }
 
     @Override
     public boolean downCountPds(String pno, String order) {
-        return false;
+        boolean isupdated = false;
+
+        Map<String, String> param = new HashMap<>();
+        param.put("order", "fdown"+order);
+        param.put("pno", pno);
+
+        if( pdao.downCountPds(param) > 0) isupdated = true;
+
+        return isupdated;
+    }
+
+    @Override
+    public void modifyRecmd(String pno) {
+        pdao.updateRecmd(pno);
+    }
+
+    @Override
+    public String readPrvpno(String pno) {
+        return pdao.selectPrvpno(pno);
+    }
+
+    @Override
+    public String readNxtpno(String pno) {
+        return pdao.selectNxtpno(pno);
+    }
+
+    @Override
+    public Pds removePds(String pno) {
+        Pds p = pdao.selectOnePds(pno);  // 삭제 전, 첨부파일정보 가져오기
+        pdao.deletePds(pno);             // 해당 게시글 지우기
+
+        return p;
     }
 
 }
