@@ -45,11 +45,9 @@
           <div class="row">
               <div class="col-5 offset-1">
                   <button type="button" class="btn btn-light" id="pdprvbtn">
-                      <i class="fas fa-chevron-left"></i> 이전게시물
-                  </button>&nbsp;
+                      <i class="fas fa-chevron-left"></i> 이전게시물</button>&nbsp;
                   <button type="button" class="btn btn-light" id="pdnxtbtn">
-                      <i class="fas fa-chevron-right"></i>다음게시물
-                  </button>
+                      <i class="fas fa-chevron-right"></i>다음게시물</button>
               </div>
             <div class="col-5 text-right">
                 <button type="button" class="btn btn-light">
@@ -96,21 +94,14 @@
      </div>
       <div class="row">
         <div class="col-5 offset-1">
-
-
             <button type="button" class="btn btn-warning text-white">
                 <i class="fas fa-edit"></i> 수정하기</button>
              <button type="button" class="btn btn-danger" id="pdrmvbtn">
                  <i class="fas fa-trash-alt"></i> 삭제하기</button>
-
-
         </div>
+
         <div class="col-5 text-right">
-
-
             <button type="button" id="pdthumbtn" class="btn btn-success"><i class="far fa-thumbs-up"></i> 추천하기</button>
-
-
             <button type="button" class="btn btn-light"><i class="fas fa-list"></i> 목록으로</button>
         </div>
       </div><!-- 댓글쓰기 -->

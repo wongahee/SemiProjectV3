@@ -1,0 +1,16 @@
+/* gallery/list 38~ */
+.pushright { float: right }
+.cdwide { width: 238px }
+.imgsize { width: 220px; height: 220px; margin-left: 8px;
+    cursor: pointer}
+.moveright { margin-left: 55px }
+.pushdown { margin-bottom: 10px }
+
+/* view */
+ .tbbg1 { background: #dff0f8 }
+.tbbg2 { background: #ccff99 }
+.tbbg3 { background: #ffffcc }
+.pushdown { margin-top: 50px }
+.cmtbg1 { background: yellow; padding: 7px 0 }
+.cmtbg2 { background: lime; padding: 7px 0 }
+.pushright { float: right}

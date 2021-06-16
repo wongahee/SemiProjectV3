@@ -67,9 +67,3 @@ $('#newrrpbtn').on('click', function (){
         frm.submit();
     }
 });
-
-
-
-
-
-

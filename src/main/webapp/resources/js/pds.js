@@ -36,4 +36,3 @@ $('#pdnxtbtn').on('click', function (){
 $('#pdrmvbtn').on('click', function (){
     location.href = '/pds/pdrmv?pno=' + $('#pno').val();
 });
-
